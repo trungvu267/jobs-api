@@ -3,14 +3,15 @@ import connectDb from './db/connect.js'
 import notFound from './middleware/not-found.js'
 import dotenv from 'dotenv'
 import errorHandlerMiddleware from './middleware/error-handler.js'
+import auth from './routes/auth.route.js'
+import jobs from './routes/job.route.js'
 dotenv.config()
 const app = express()
 
 app.use(express.json())
 
-app.get('/hello', (req, res) => {
-  res.send('Hello From Server')
-})
+app.use('/auth', auth)
+app.use('/job', jobs)
 
 app.use(notFound)
 app.use(errorHandlerMiddleware)
