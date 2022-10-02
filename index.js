@@ -5,13 +5,14 @@ import dotenv from 'dotenv'
 import errorHandlerMiddleware from './middleware/error-handler.js'
 import auth from './routes/auth.route.js'
 import jobs from './routes/job.route.js'
+import authentication from './middleware/authentication.js'
 dotenv.config()
 const app = express()
 
 app.use(express.json())
 
 app.use('/auth', auth)
-app.use('/job', jobs)
+app.use('/job', authentication, jobs)
 
 app.use(notFound)
 app.use(errorHandlerMiddleware)
