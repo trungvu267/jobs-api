@@ -6,10 +6,24 @@ import errorHandlerMiddleware from './middleware/error-handler.js'
 import auth from './routes/auth.route.js'
 import jobs from './routes/job.route.js'
 import authentication from './middleware/authentication.js'
+
+import helmet from 'helmet'
+import cors from 'cors'
+import xss from 'xss-clean'
+import rateLimiter from 'express-rate-limit'
 dotenv.config()
 const app = express()
 
+app.use(
+  rateLimiter({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+  })
+)
 app.use(express.json())
+app.use(helmet())
+app.use(cors())
+app.use(xss())
 
 app.use('/auth', auth)
 app.use('/jobs', authentication, jobs)
