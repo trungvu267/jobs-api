@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import {
   getAllJobs,
-  getJobs,
+  getJob,
   createJobs,
   updateJobs,
   deleteJobs,
@@ -9,10 +9,7 @@ import {
 
 const router = Router()
 
-router.get('/get-all-jobs', getAllJobs)
-router.get('/get-job', getJobs)
-router.post('/create-job', createJobs)
-router.put('/update-job', updateJobs)
-router.delete('/delete-job', deleteJobs)
+router.route('/').get(getAllJobs).post(createJobs)
+router.route('/:id').get(getJob).put(updateJobs).delete(deleteJobs)
 
 export default router
